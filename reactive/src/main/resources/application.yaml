@@ -1,0 +1,26 @@
+spring:
+  application:
+    name: reactive-poc
+  threads:
+    virtual:
+      enabled: true
+  rabbitmq:
+    addresses: ${RABBITMQ_URL}
+    template:
+      retry:
+        enabled: false
+    cache:
+      connection:
+        mode: channel
+      channel:
+        size: 50
+        checkout-timeout: 1000ms
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,metrics,prometheus
+  metrics:
+    tags:
+      application: ${spring.application.name}
